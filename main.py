@@ -47,7 +47,7 @@ def save_marks(soup, debug=0):
 
 	file.write(csv)
 
-	if debug == 1:
+	if debug != 0:
 		print(csv)
 
 
