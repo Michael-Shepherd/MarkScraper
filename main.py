@@ -28,6 +28,8 @@ def get_soup(URL, username, password, debug=0):
 		return("CONNECTION ERROR")
 
 def save_marks(soup, debug=0):
+	if debug != 0:
+		print(soup)
 	filename = sys.argv[1]+ "_" + arrow.now().format("DDMMYYHHmm") + ".csv"
 	file = open(os.path.join("marks", filename), "w+")
 	csv = ""
