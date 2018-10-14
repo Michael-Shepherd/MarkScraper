@@ -67,8 +67,9 @@ def display_data(data, user_hash,  debug=0):
         final = row[13]
         final_array.append(float(final))
         average = average + float(final)
-        if float(final) > 55.83:
+        if float(final) > 74.09:
             betterthanme += 1
+            print("This Guys is better than me:")
         if hash == user_hash:
             user = line.format("USER", ass0, ass1, ass2, ass3, ass4, ass5, ass6, ass7,\
                               test1, test2, test3, test4,\
