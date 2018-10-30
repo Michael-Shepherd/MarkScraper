@@ -7,7 +7,6 @@ import time
 import hashlib
 import lxml.html
 from functions import *
-from bs4 import BeautifulSoup
 
 URL = "http://www.cs.sun.ac.za/wb372/assess/"
 DEBUG = 0
@@ -46,6 +45,7 @@ def display_data(data, user_hash,  debug=0):
     Headers = "Hash:\tAss0\tAss1\tAss2\tAss3\tAss4\tAss5\tAss6\tAss7\ttest1\ttest1\ttest1\ttest1\tFinal"
     line = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t"
     average = 0
+    user_final = 0
     final_array = []
     user = ""
     betterthanme=0
@@ -67,10 +67,11 @@ def display_data(data, user_hash,  debug=0):
         final = row[13]
         final_array.append(float(final))
         average = average + float(final)
-        if float(final) > 74.09:
+        if float(final) > 84.76:
             betterthanme += 1
             print("This Guys is better than me:")
         if hash == user_hash:
+            user_final = float(final)
             user = line.format("USER", ass0, ass1, ass2, ass3, ass4, ass5, ass6, ass7,\
                               test1, test2, test3, test4,\
                               final)
@@ -79,20 +80,24 @@ def display_data(data, user_hash,  debug=0):
                           final))
 
 
-    print("*****\n{}\n*****".format(user))
+    print("*********************\n{}\n*********************".format(user))
     average = average/len(data)
-    print("Average: {:.2f}".format(average))
-    print("{} out of {} are better than me".format(betterthanme, len(data)))
-
     final = np.asarray(final_array)
-
+    sd = np.std(final)
+    user_sd = (user_final - average)/sd
+    print("Average: {:.2f}".format(np.mean(final)))
+    print("Standard Deviation: {:.2f}".format(sd))
+    print("You lie {:.2f} Standard deviations from the mean".format(user_sd))
+    print("{} out of {} are better than me".format(betterthanme, len(data)))
 
     if debug != 0:
         print("displayed data")
+
+
 ################################################################################
 #
 # Usage:
-# wb372 [debug] [student number] [First year registered] [Birthday(yyyy-mm-dd)]
+# python3 wb372.py [debug] [student number] [First year registered] [Birthday(yyyy-mm-dd)]
 #
 ################################################################################
 if __name__ == "__main__":
