@@ -29,5 +29,5 @@ The function can either display Academic History in the terminal, or it can
 download them in pdf format into your default download folder, using the
 following command
 ```
-Usage: python3 Academic_History.py <student number> <su password> <display(0)/download(1)>
+Usage: python3 Academic_History.py <student number>:wq <display(0)/download(1)>
 ```
