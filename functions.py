@@ -16,16 +16,17 @@ from bs4 import BeautifulSoup
 # out:
 #   Either "EMPTY" or the soup of the given url
 ###############################################################################
-def get_soup(url, debug=0):
+def get_soup(url, debug=0, session=None):
+    if session == None:
+        session = requests.session()
     for i in range (3):
-        with requests.session() as session:
-            try:
-                time.sleep(0.01)
-                request = session.get(url)
-                return BeautifulSoup(request.content, "lxml")
-            except:
-                if debug != 0:
-                    print("\nAttempt: %d\n"%i)
-                else:
-                    pass
+        try:
+            time.sleep(0.01)
+            request = session.get(url)
+            return BeautifulSoup(request.content, "lxml")
+        except:
+            if debug != 0:
+                print("\nAttempt: %d\n"%i)
+            else:
+                pass
     return("EMPTY")
